@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  tb:
+    image: "tsouhaieb/thingsboard_healthcheck_log_cd"
+    ports:
+      - "8080:8080"
+      - "18831:1883"
+      - "5683:5683/udp"
+    env_file:
+      - tb.env
+    environment:
+      - ADD_SCHEMA_AND_SYSTEM_DATA=true
+      - ADD_DEMO_DATA=true
+    volumes:
+      #- "${HSQLDB_DATA_DIR}:/usr/share/thingsboard/data/sql"
+      - "./logback.xml:/etc/thingsboard/conf/logback.xml"
+    entrypoint: /run-application.sh
+  cassandra:
+    image: "cassandra:3.11.2"
+    ports:
+      - "9042"
+      - "9160"
+    volumes:
+      - "${CASSANDRA_DATA_DIR}:/var/lib/cassandra"
