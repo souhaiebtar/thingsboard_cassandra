@@ -5,3 +5,9 @@ git clone https://github.com/souhaiebtar/thingsboard_cassandra
 cd thingsboard_cassandra
 docker-compose up -d
 ```
+
+copy mqttserver certificate inside container
+
+```SHELL
+docker cp certificate/mqttserver.jks thingsboard_cassandra_tb_1:/etc/thingsboard/conf/mqttserver.jks
+```
